@@ -1,5 +1,6 @@
 package com.example.colorsgame;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -8,12 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         final FrameLayout main = findViewById(R.id.main);
 
+        ArrayList<ImageButton> gamesIB = new ArrayList<>();
         int numViews = 7;
         for (int i = 0; i < numViews; i++) {
             ImageButton ib = new ImageButton(this);
@@ -49,6 +54,28 @@ public class MainActivity extends AppCompatActivity {
             ib.setTranslationY(height * (float) Math.sin(angleRad));
             //ib.setRotation(angleDeg + 90.0f);
             main.addView(ib);
+
+            gamesIB.add(ib);
         }
+
+        ArrayList<Class> classes = new ArrayList<>();
+        classes.add(Game1Activity.class);
+        /*classes.add(Game1Activity.class);
+        classes.add(Game1Activity.class);
+        classes.add(Game1Activity.class);
+        classes.add(Game1Activity.class);
+        classes.add(Game1Activity.class);*/
+
+        //for (ImageButton ib: gamesIB) {
+            //ib.setOnClickListener(new View.OnClickListener() {
+            gamesIB.get(0).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), Game1Activity.class);
+                    startActivity(intent);
+                }
+            });
+        //}
+
     }
 }
