@@ -2,20 +2,16 @@ package com.example.colorsgame;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -30,12 +26,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final FrameLayout main = findViewById(R.id.main);
+        ImageButton info = findViewById(R.id.infoIB);
 
-        ArrayList<ImageButton> gamesIB = new ArrayList<>();
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
+                intent.putExtra("activity","main");
+                startActivity(intent);
+            }
+        });
+
+        ArrayList<Integer> gamesImages = new ArrayList<>();
+        gamesImages.add(R.drawable.images);
+        gamesImages.add(R.drawable.images);
+        gamesImages.add(R.drawable.images);
+        gamesImages.add(R.drawable.images);
+        gamesImages.add(R.drawable.images);
+        gamesImages.add(R.drawable.images);
+        gamesImages.add(R.drawable.images);
+
+        ImageButton[] gamesIB = new ImageButton[7];
         int numViews = 7;
         for (int i = 0; i < numViews; i++) {
             ImageButton ib = new ImageButton(this);
-            ib.setImageResource(R.drawable.images);
+            ib.setImageResource(gamesImages.get(i));
             ib.setForegroundGravity(Gravity.CENTER);
             ib.setScaleType(ImageView.ScaleType.FIT_CENTER);
             ib.setBackground(null);
@@ -55,27 +70,27 @@ public class MainActivity extends AppCompatActivity {
             //ib.setRotation(angleDeg + 90.0f);
             main.addView(ib);
 
-            gamesIB.add(ib);
+            gamesIB[i] = ib;
         }
 
-        ArrayList<Class> classes = new ArrayList<>();
-        classes.add(Game1Activity.class);
-        /*classes.add(Game1Activity.class);
-        classes.add(Game1Activity.class);
-        classes.add(Game1Activity.class);
-        classes.add(Game1Activity.class);
-        classes.add(Game1Activity.class);*/
+        final Class[] classes = new Class[7];
+        classes[0] = Game1Activity.class;
+        /*classes.add(Game2Activity.class);
+        classes.add(Game3Activity.class);
+        classes.add(Game4Activity.class);
+        classes.add(Game5Activity.class);
+        classes.add(Game6Activity.class);
+        classes.add(Game7Activity.class);
 
-        //for (ImageButton ib: gamesIB) {
-            //ib.setOnClickListener(new View.OnClickListener() {
-            gamesIB.get(0).setOnClickListener(new View.OnClickListener() {
+        for (ImageButton ib: gamesIB) {
+            ib.setOnClickListener(new View.OnClickListener() {*/
+            gamesIB[0].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), Game1Activity.class);
+                    Intent intent = new Intent(getApplicationContext(), classes[0]);
                     startActivity(intent);
                 }
             });
         //}
-
     }
 }

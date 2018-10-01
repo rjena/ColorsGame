@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ColorsGame</string>
+    <string name="description">Общее описание</string>
+    <string name="game1_info">Описание игры №1</string>
+    <string name="game2_info">Описание игры №2</string>
+    <string name="game3_info">Описание игры №3</string>
+    <string name="game4_info">Описание игры №4</string>
+    <string name="game5_info">Описание игры №5</string>
+    <string name="game6_info">Описание игры №6</string>
+    <string name="game7_info">Описание игры №7</string>
 </resources>
