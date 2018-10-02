@@ -3,6 +3,7 @@ package com.example.colorsgame;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
@@ -44,10 +45,9 @@ public class MainActivity extends AppCompatActivity {
         gamesImages.add(R.drawable.images);
         gamesImages.add(R.drawable.images);
         gamesImages.add(R.drawable.images);
-        gamesImages.add(R.drawable.images);
 
         ImageButton[] gamesIB = new ImageButton[7];
-        int numViews = 7;
+        int numViews = 6;
         for (int i = 0; i < numViews; i++) {
             ImageButton ib = new ImageButton(this);
             ib.setImageResource(gamesImages.get(i));
@@ -73,14 +73,13 @@ public class MainActivity extends AppCompatActivity {
             gamesIB[i] = ib;
         }
 
-        final Class[] classes = new Class[7];
+        final Class[] classes = new Class[6];
         classes[0] = Game1Activity.class;
         /*classes.add(Game2Activity.class);
         classes.add(Game3Activity.class);
         classes.add(Game4Activity.class);
         classes.add(Game5Activity.class);
         classes.add(Game6Activity.class);
-        classes.add(Game7Activity.class);
 
         for (ImageButton ib: gamesIB) {
             ib.setOnClickListener(new View.OnClickListener() {*/

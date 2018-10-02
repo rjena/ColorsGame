@@ -125,9 +125,6 @@ public class Game1Activity extends AppCompatActivity {
         darkBlue.color = ContextCompat.getColor(this, R.color.colorDarkBlue);
         resColors.add(darkBlue);
 
-        color3IV.setColorFilter(resColors.get(2).color);
-        color3TV.setText(resColors.get(2).title);
-
         info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,9 +136,7 @@ public class Game1Activity extends AppCompatActivity {
 
         Collections.shuffle(resColors);
 
-        while (n < resColors.size())
-            round();
-
+        round();
     }
 
     public void round() {
@@ -176,9 +171,10 @@ public class Game1Activity extends AppCompatActivity {
         color2IV.clearColorFilter();
         color2TV.setText("?");
         if ((resColors.get(n).color1 == clColors[0] && resColors.get(n).color2 == clColors[1])
-                || (resColors.get(n).color1 == clColors[1] && resColors.get(n).color2 == clColors[0])) {
+                || (resColors.get(n).color1 == clColors[1] && resColors.get(n).color2 == clColors[0]))
             n++;
-        }
+        if (n<resColors.size()) round();
+        else onBackPressed();
     }
 }
 
