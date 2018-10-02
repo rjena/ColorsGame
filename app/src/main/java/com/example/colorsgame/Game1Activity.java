@@ -12,8 +12,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Game1Activity extends AppCompatActivity {
+    ImageButton[] colorsIB;
+    TextView color1TV;
+    TextView color2TV;
+    TextView color3TV;
+    ImageView color1IV;
+    ImageView color2IV;
+    ImageView color3IV;
+    ArrayList<ResultColor> resColors;
+    boolean firstClick;
+    int n = 0;
+    String[] mainColorsTitles;
+    int[] mainColors;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,23 +37,23 @@ public class Game1Activity extends AppCompatActivity {
 
         ImageButton info = findViewById(R.id.infoIB);
 
-        TextView color1TV = findViewById(R.id.color1TV);
-        TextView color2TV = findViewById(R.id.color2TV);
-        TextView color3TV = findViewById(R.id.color3TV);
+        color1TV = findViewById(R.id.color1TV);
+        color2TV = findViewById(R.id.color2TV);
+        color3TV = findViewById(R.id.color3TV);
 
-        ImageView color1IV = findViewById(R.id.color1IV);
-        ImageView color2IV = findViewById(R.id.color2IV);
-        ImageView color3IV = findViewById(R.id.color3IV);
+        color1IV = findViewById(R.id.color1IV);
+        color2IV = findViewById(R.id.color2IV);
+        color3IV = findViewById(R.id.color3IV);
 
-        ImageButton[] colorsIB = new ImageButton[5];
+        colorsIB = new ImageButton[5];
         colorsIB[0] = findViewById(R.id.color1IB);
         colorsIB[1] = findViewById(R.id.color2IB);
         colorsIB[2] = findViewById(R.id.color3IB);
         colorsIB[3] = findViewById(R.id.color4IB);
         colorsIB[4] = findViewById(R.id.color5IB);
 
-        String[] mainColorsTitles = new String[5];
-        int[] mainColors = new int[5];
+        mainColorsTitles = new String[5];
+        mainColors = new int[5];
 
         mainColorsTitles[0] = "Белый";
         mainColorsTitles[1] = "Красный";
@@ -54,7 +67,7 @@ public class Game1Activity extends AppCompatActivity {
         mainColors[3] = ContextCompat.getColor(this, R.color.colorBlue);
         mainColors[4] = ContextCompat.getColor(this, R.color.colorBlack);
 
-        ArrayList<ResultColor> resColors = new ArrayList<>();
+        resColors = new ArrayList<>();
         
         ResultColor green = new ResultColor();
         green.title = "Зелёный";
@@ -123,6 +136,49 @@ public class Game1Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Collections.shuffle(resColors);
+
+        while (n < resColors.size())
+            round();
+
+    }
+
+    public void round() {
+        firstClick = true;
+        color3IV.setColorFilter(resColors.get(n).color);
+        color3TV.setText(resColors.get(n).title);
+        final int[] clickedColors = new int[2];
+        for (int i = 0; i < 5; i++) {
+            final int ii = i;
+            colorsIB[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (firstClick) {
+                        color1IV.setColorFilter(mainColors[ii]);
+                        color1TV.setText(mainColorsTitles[ii]);
+                        firstClick = false;
+                        clickedColors[0] = ii;
+                    } else {
+                        color2IV.setColorFilter(mainColors[ii]);
+                        color2TV.setText(mainColorsTitles[ii]);
+                        firstClick = true;
+                        clickedColors[1] = ii;
+                        checkColors(clickedColors);
+                    }
+                }
+            });
+        }
+    }
+    public void checkColors(int[] clColors) {
+        color1IV.clearColorFilter();
+        color1TV.setText("?");
+        color2IV.clearColorFilter();
+        color2TV.setText("?");
+        if ((resColors.get(n).color1 == clColors[0] && resColors.get(n).color2 == clColors[1])
+                || (resColors.get(n).color1 == clColors[1] && resColors.get(n).color2 == clColors[0])) {
+            n++;
+        }
     }
 }
 
