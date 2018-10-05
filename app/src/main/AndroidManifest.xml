@@ -14,15 +14,25 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Game1Activity"
             android:screenOrientation="landscape" />
+
         <activity
             android:name=".InfoActivity"
             android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".Game2Activity"
+            android:screenOrientation="landscape" />
+
+
+         </activity>
+
     </application>
 
 </manifest>

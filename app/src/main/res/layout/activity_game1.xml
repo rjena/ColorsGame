@@ -30,7 +30,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="4"
                     android:gravity="center"
-                    android:text="?" />
+                    android:text=" ?" />
 
                 <ImageView
                     android:id="@+id/color1IV"
@@ -59,7 +59,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="4"
                     android:gravity="center"
-                    android:text="?" />
+                    android:text=" ?" />
 
                 <ImageView
                     android:id="@+id/color2IV"
