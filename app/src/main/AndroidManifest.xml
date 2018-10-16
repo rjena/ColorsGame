@@ -17,10 +17,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        
+		
         <activity
             android:name=".Game1Activity"
             android:screenOrientation="landscape" />
+		
 
         <activity
             android:name=".InfoActivity"
@@ -29,10 +31,9 @@
         <activity
             android:name=".Game2Activity"
             android:screenOrientation="landscape" />
-
-
-         </activity>
+			
+		</activity>	
+         
 
     </application>
-
 </manifest>
