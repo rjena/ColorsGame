@@ -17,19 +17,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <activity
-                android:name=".Game1Activity"
-                android:screenOrientation="landscape" />
-            <activity
-                android:name=".InfoActivity"
-                android:screenOrientation="landscape" />
-            <activity
-                android:name=".Game2Activity"
-                android:screenOrientation="landscape" />
         </activity>
-        <activity android:name=".Game3Activity" />
-        <activity android:name=".Game4Activity"></activity>
+        <activity
+            android:name=".Game1Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".InfoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Game2Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Game3Activity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Game4Activity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>
