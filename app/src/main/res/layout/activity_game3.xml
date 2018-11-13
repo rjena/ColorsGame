@@ -4,116 +4,137 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".Game3Activity">
 
-<FrameLayout
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:layout_weight="1"
-android:orientation="vertical">
-
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageButton
-        android:id="@+id/infoIB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@null"
-        android:tint="@android:color/holo_blue_light"
-        app:srcCompat="@android:drawable/ic_dialog_info" />
-
-    <LinearLayout
-        android:id="@+id/seekBars"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
-           android:orientation="vertical">
+        android:layout_weight="1">
 
         <LinearLayout
+            android:id="@+id/seekBarsLL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/redTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:text="TextView" />
+
+                <SeekBar
+                    android:id="@+id/redSB"
+                    style="@android:style/Widget.Holo.SeekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:progressTint="@color/colorRed"
+                    android:thumbTint="@color/colorRed"
+                    android:layout_weight="1"
+                    android:max="255"
+                    android:progress="150" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/greenTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:text="TextView" />
+
+                <SeekBar
+                    android:id="@+id/greenSB"
+                    style="@android:style/Widget.Holo.SeekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:max="255"
+                    android:progress="150"
+                    android:progressTint="@color/colorGreen"
+                    android:thumbTint="@color/colorGreen" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/blueTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:text="TextView" />
+
+                <SeekBar
+                    android:id="@+id/blueSB"
+                    style="@android:style/Widget.Holo.SeekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:progressTint="@color/colorBlue"
+                    android:thumbTint="@color/colorBlue"
+                    android:layout_weight="1"
+                    android:max="255"
+                    android:progress="150" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/success"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:visibility="gone"
+            android:src="@drawable/happy_bun" />
+
+        <ImageButton
+            android:id="@+id/infoIB"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/info" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/resultIV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            app:srcCompat="@drawable/kraska" />
 
-
-
-            <SeekBar
-                android:id="@+id/seekBarRed"
-                style="@android:style/Widget.SeekBar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"
-                android:max="255"
-                android:progress="150"
-      />
-        </LinearLayout>
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/taskIV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
-
-
-
-            <SeekBar
-                android:id="@+id/seekBarBlue"
-                style="@android:style/Widget.SeekBar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"
-                android:max="255"
-                android:progress="150"              />
+            app:srcCompat="@drawable/kraska" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-
-
-            <SeekBar
-                android:id="@+id/seekBarGreen"
-                style="@android:style/Widget.SeekBar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1"
-                android:max="255"
-                android:progress="150"
-                 />
-        </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>
-
-
-
-</FrameLayout>
-
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:layout_weight="2"
-android:orientation="vertical">
-
-<ImageView
-    android:id="@+id/imgResult"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_weight="0.5"
-    app:srcCompat="@drawable/kraska" />
-
-<ImageView
-    android:id="@+id/imgTask"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_weight="0.5"
-    app:srcCompat="@drawable/kraska" />
-</LinearLayout>
 
 </LinearLayout>

@@ -9,168 +9,202 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <LinearLayout
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.8"
-                android:orientation="vertical">
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/color1TV"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:gravity="center"
-                    android:text=" ?" />
+                    android:layout_weight="0.8"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/color1TV"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:text=" ?" />
+
+                    <ImageView
+                        android:id="@+id/color1IV"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/klyaksa" />
+                </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/color1IV"
+                    android:id="@+id/plusIV"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:srcCompat="@android:drawable/btn_star" />
-            </LinearLayout>
+                    android:tint="@android:color/darker_gray"
+                    app:srcCompat="@drawable/plus" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:tint="@android:color/darker_gray"
-                app:srcCompat="@android:drawable/ic_input_add" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.8"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/color2TV"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:gravity="center"
-                    android:text=" ?" />
+                    android:layout_weight="0.8"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/color2TV"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:text=" ?" />
+
+                    <ImageView
+                        android:id="@+id/color2IV"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/klyaksa" />
+                </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/color2IV"
+                    android:id="@+id/equationIV"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:srcCompat="@android:drawable/btn_star" />
-            </LinearLayout>
+                    android:tint="@android:color/darker_gray"
+                    app:srcCompat="@drawable/equation" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:tint="@android:color/darker_gray"
-                app:srcCompat="@android:drawable/ic_media_play" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.8"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/color3TV"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"
-                    android:gravity="center"
-                    android:text="Color" />
+                    android:layout_weight="0.8"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/color3IV"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    app:srcCompat="@android:drawable/btn_star" />
+                    <TextView
+                        android:id="@+id/color3TV"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:text="Color" />
+
+                    <ImageView
+                        android:id="@+id/color3IV"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/klyaksa" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-        <LinearLayout
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/success"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/happy_bun" />
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/fail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/sad_bun" />
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/finish"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitEnd"
+                android:src="@drawable/rgbit" />
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:layout_weight="1.3"
-            android:orientation="horizontal">
+            android:layout_weight="1.8">
 
-            <ImageButton
-                android:id="@+id/color1IB"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:tint="@android:color/white"
-                app:srcCompat="@android:drawable/btn_star" />
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/color2IB"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:tint="@color/colorRed"
-                app:srcCompat="@android:drawable/btn_star" />
+                <ImageButton
+                    android:id="@+id/color1IB"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:tint="@android:color/white"
+                    app:srcCompat="@drawable/klyaksa" />
 
-            <ImageButton
-                android:id="@+id/color3IB"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:tint="@color/colorYellow"
-                app:srcCompat="@android:drawable/btn_star" />
+                <ImageButton
+                    android:id="@+id/color2IB"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:tint="@color/colorRed"
+                    app:srcCompat="@drawable/klyaksa" />
 
-            <ImageButton
-                android:id="@+id/color4IB"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:tint="@color/colorBlue"
-                app:srcCompat="@android:drawable/btn_star" />
+                <ImageButton
+                    android:id="@+id/color3IB"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:tint="@color/colorYellow"
+                    app:srcCompat="@drawable/klyaksa" />
 
-            <ImageButton
-                android:id="@+id/color5IB"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:tint="@color/colorBlack"
-                app:srcCompat="@android:drawable/btn_star" />
-        </LinearLayout>
+                <ImageButton
+                    android:id="@+id/color4IB"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:tint="@color/colorBlue"
+                    app:srcCompat="@drawable/klyaksa" />
+
+                <ImageButton
+                    android:id="@+id/color5IB"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:tint="@color/colorBlack"
+                    app:srcCompat="@drawable/klyaksa" />
+            </LinearLayout>
+        </FrameLayout>
+
     </LinearLayout>
 
     <ImageButton
         android:id="@+id/infoIB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
         android:background="@null"
-        android:tint="@android:color/holo_blue_light"
-        app:srcCompat="@android:drawable/ic_dialog_info" />
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/info" />
 
 </FrameLayout>

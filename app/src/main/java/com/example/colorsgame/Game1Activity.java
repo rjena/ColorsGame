@@ -2,11 +2,18 @@ package com.example.colorsgame;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +21,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class Game1Activity extends AppCompatActivity {
+    ImageButton infoIB;
+    ImageView plusIV;
+    ImageView equationIV;
+    GifImageView successGif;
+    GifImageView failGif;
+    GifImageView finishGif;
     ImageButton[] colorsIB;
     TextView color1TV;
     TextView color2TV;
@@ -27,6 +42,8 @@ public class Game1Activity extends AppCompatActivity {
     int n = 0;
     String[] mainColorsTitles;
     int[] mainColors;
+    int[] darkColors;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +52,29 @@ public class Game1Activity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game1);
 
-        ImageButton info = findViewById(R.id.infoIB);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        infoIB = findViewById(R.id.infoIB);
+        FrameLayout.LayoutParams infoParams = (FrameLayout.LayoutParams) infoIB.getLayoutParams();
+        infoParams.height = size.y / 12;
+        infoParams.width = infoParams.height;
+        infoIB.setLayoutParams(infoParams);
+
+        plusIV = findViewById(R.id.plusIV);
+        equationIV = findViewById(R.id.equationIV);
+        successGif = findViewById(R.id.success);
+        failGif = findViewById(R.id.fail);
+        finishGif = findViewById(R.id.finish);
+        finishGif.setVisibility(View.GONE);
 
         color1TV = findViewById(R.id.color1TV);
         color2TV = findViewById(R.id.color2TV);
         color3TV = findViewById(R.id.color3TV);
+        color1TV.setTextSize(size.x / 60 > size.y / 33 ? size.y / 33 : size.x / 60);
+        color2TV.setTextSize(size.x / 60 > size.y / 33 ? size.y / 33 : size.x / 60);
+        color3TV.setTextSize(size.x / 60 > size.y / 33 ? size.y / 33 : size.x / 60);
 
         color1IV = findViewById(R.id.color1IV);
         color2IV = findViewById(R.id.color2IV);
@@ -54,6 +89,7 @@ public class Game1Activity extends AppCompatActivity {
 
         mainColorsTitles = new String[5];
         mainColors = new int[5];
+        darkColors = new int[5];
 
         mainColorsTitles[0] = "Белый";
         mainColorsTitles[1] = "Красный";
@@ -67,8 +103,14 @@ public class Game1Activity extends AppCompatActivity {
         mainColors[3] = ContextCompat.getColor(this, R.color.colorBlue);
         mainColors[4] = ContextCompat.getColor(this, R.color.colorBlack);
 
+        darkColors[0] = Color.parseColor("#f0f0f0");
+        darkColors[1] = Color.parseColor("#d00000");
+        darkColors[2] = Color.parseColor("#ffe000");
+        darkColors[3] = Color.parseColor("#0000ce");
+        darkColors[4] = Color.parseColor("#333333");
+
         resColors = new ArrayList<>();
-        
+
         ResultColor green = new ResultColor();
         green.title = "Зелёный";
         green.color1 = 2;
@@ -82,7 +124,7 @@ public class Game1Activity extends AppCompatActivity {
         violet.color2 = 3;
         violet.color = ContextCompat.getColor(this, R.color.colorViolet);
         resColors.add(violet);
-        
+
         ResultColor orange = new ResultColor();
         orange.title = "Оранжевый";
         orange.color1 = 1;
@@ -125,12 +167,31 @@ public class Game1Activity extends AppCompatActivity {
         darkBlue.color = ContextCompat.getColor(this, R.color.colorDarkBlue);
         resColors.add(darkBlue);
 
-        info.setOnClickListener(new View.OnClickListener() {
+        infoIB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
-                intent.putExtra("activity","game1");
+                intent.putExtra("activity", "game1");
                 startActivity(intent);
+            }
+        });
+        infoIB.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        infoIB.setColorFilter(0x65000000, PorterDuff.Mode.SRC_ATOP);
+                        infoIB.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        infoIB.clearColorFilter();
+                        infoIB.invalidate();
+                        break;
+                    }
+                }
+                return false;
             }
         });
 
@@ -140,13 +201,20 @@ public class Game1Activity extends AppCompatActivity {
     }
 
     public void round() {
+        successGif.setVisibility(View.GONE);
+        failGif.setVisibility(View.GONE);
+        color1IV.clearColorFilter();
+        color1TV.setText("?");
+        color2IV.clearColorFilter();
+        color2TV.setText("?");
         firstClick = true;
         color3IV.setColorFilter(resColors.get(n).color);
         color3TV.setText(resColors.get(n).title);
         final int[] clickedColors = new int[2];
         for (int i = 0; i < 5; i++) {
+            colorsIB[i].setClickable(true);
             final int ii = i;
-            colorsIB[i].setOnClickListener(new View.OnClickListener() {
+            colorsIB[ii].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (firstClick) {
@@ -163,18 +231,89 @@ public class Game1Activity extends AppCompatActivity {
                     }
                 }
             });
+            colorsIB[ii].setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            if (colorsIB[ii].isClickable()) {
+                                colorsIB[ii].setColorFilter(darkColors[ii]);
+                                colorsIB[ii].invalidate();
+                                break;
+                            }
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL: {
+                            colorsIB[ii].setColorFilter(mainColors[ii]);
+                            colorsIB[ii].invalidate();
+                            break;
+                        }
+                    }
+                    return false;
+                }
+            });
         }
     }
+
     public void checkColors(int[] clColors) {
-        color1IV.clearColorFilter();
-        color1TV.setText("?");
-        color2IV.clearColorFilter();
-        color2TV.setText("?");
         if ((resColors.get(n).color1 == clColors[0] && resColors.get(n).color2 == clColors[1])
-                || (resColors.get(n).color1 == clColors[1] && resColors.get(n).color2 == clColors[0]))
+                || (resColors.get(n).color1 == clColors[1] && resColors.get(n).color2 == clColors[0])) {
             n++;
-        if (n<resColors.size()) round();
-        else onBackPressed();
+            for (ImageButton ib : colorsIB)
+                ib.setClickable(false);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    successGif.setVisibility(View.VISIBLE);
+                }
+            }, 500);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    failGif.setVisibility(View.GONE);
+                    if (n < resColors.size()) round();
+                    else {
+                        for (ImageButton ib : colorsIB)
+                            ib.setClickable(false);
+                        infoIB.setClickable(false);
+                        color1TV.setText("");
+                        color2TV.setText("");
+                        color3TV.setText("");
+                        color1IV.setImageDrawable(null);
+                        color2IV.setImageDrawable(null);
+                        color3IV.setImageDrawable(null);
+                        plusIV.setImageDrawable(null);
+                        equationIV.setImageDrawable(null);
+                        successGif.setVisibility(View.GONE);
+                        failGif.setVisibility(View.GONE);
+                        finishGif.setVisibility(View.VISIBLE);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        }, 5000);
+                    }
+                }
+            }, 3000);
+        } else {
+            for (ImageButton ib : colorsIB)
+                ib.setClickable(false);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    failGif.setVisibility(View.VISIBLE);
+                }
+            }, 500);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    failGif.setVisibility(View.GONE);
+                    for (ImageButton ib : colorsIB)
+                        ib.setClickable(true);
+                    round();
+                }
+            }, 3000);
+        }
     }
 }
 

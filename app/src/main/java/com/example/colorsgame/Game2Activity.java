@@ -1,15 +1,22 @@
 package com.example.colorsgame;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.os.Bundle;
+import android.graphics.Point;
+import android.graphics.PorterDuff;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-
+import android.os.Bundle;
+import android.content.pm.ActivityInfo;
+import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,81 +24,137 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class Game2Activity extends AppCompatActivity {
-    ImageView ivArc1;
-    ImageView ivArc5;
-    ImageView rainbowContour;
-    ImageButton info;
+    ImageView arc1IV;
+    ImageView arc5IV;
+    ImageView arcsContourIV;
+    GifImageView successGif;
+    GifImageView failGif;
 
     int k = 0;
-    ImageView[] arcs = new ImageView[3];
-    int[] btColors = new int[3];
+    ImageView[] arcsIV = new ImageView[3];
+    int[] mixedColors = new int[3];
     ArrayList<Integer> playerComb;
-    ArrayList<Integer> rightComb;
+    List<Integer> rightComb = Arrays.asList(1, 2, 3);
+    ;
     int[] setOfColors;
-    ImageButton[] allColorBT = new ImageButton[3];
-    ImageView[] allColorIV = new ImageView[3];
-    ImageView[] allFlowerIV = new ImageView[3];
+    ImageButton[] colorsIB = new ImageButton[3];
+    ImageView[] colorsIV = new ImageView[3];
+    ImageView[] flowersIV = new ImageView[3];
     List<Integer> mix;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game2);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_game2);
 
-        info = findViewById(R.id.info);
+        final ImageButton infoIB = findViewById(R.id.infoIB);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        FrameLayout.LayoutParams infoParams = (FrameLayout.LayoutParams) infoIB.getLayoutParams();
+        infoParams.height = size.y / 12;
+        infoParams.width = infoParams.height;
+        infoIB.setLayoutParams(infoParams);
 
-        allColorBT[0] = findViewById(R.id.color1ib);
-        allColorBT[1] = findViewById(R.id.color2ib);
-        allColorBT[2] = findViewById(R.id.color3ib);
+        FrameLayout rainbowFL = findViewById(R.id.rainbowFL);
+        LinearLayout.LayoutParams rainbowParams = (LinearLayout.LayoutParams) rainbowFL.getLayoutParams();
+        rainbowParams.setMargins(0, size.y / 10, 0, 0);
+        rainbowFL.setLayoutParams(rainbowParams);
 
-        allColorIV[0] = findViewById(R.id.color1iv);
-        allColorIV[1] = findViewById(R.id.color2iv);
-        allColorIV[2] = findViewById(R.id.color3iv);
+        successGif = findViewById(R.id.success);
+        failGif = findViewById(R.id.fail);
 
-        allFlowerIV[0] = findViewById(R.id.flower1);
-        allFlowerIV[1] = findViewById(R.id.flower2);
-        allFlowerIV[2] = findViewById(R.id.flower3);
+        colorsIB[0] = findViewById(R.id.color1IB);
+        colorsIB[1] = findViewById(R.id.color2IB);
+        colorsIB[2] = findViewById(R.id.color3IB);
 
-        ivArc1 = findViewById(R.id.arc1iv);
-        arcs[0] = findViewById(R.id.arc2iv);
-        arcs[1] = findViewById(R.id.arc3iv);
-        arcs[2] = findViewById(R.id.arc4iv);
-        ivArc5 = findViewById(R.id.arc5iv);
-        rainbowContour = findViewById(R.id.rainbowContour);
+        colorsIV[0] = findViewById(R.id.color1IV);
+        colorsIV[1] = findViewById(R.id.color2IV);
+        colorsIV[2] = findViewById(R.id.color3IV);
 
-        rightComb = new ArrayList<>();
-        rightComb.add(1);
-        rightComb.add(2);
-        rightComb.add(3);
+        flowersIV[0] = findViewById(R.id.flower1IV);
+        flowersIV[1] = findViewById(R.id.flower2IV);
+        flowersIV[2] = findViewById(R.id.flower3IV);
+
+        arc1IV = findViewById(R.id.arc1IV);
+        arcsIV[0] = findViewById(R.id.arc2IV);
+        arcsIV[1] = findViewById(R.id.arc3IV);
+        arcsIV[2] = findViewById(R.id.arc4IV);
+        arc5IV = findViewById(R.id.arc5IV);
+        arcsContourIV = findViewById(R.id.arcsIV);
 
         newGame();
 
-        info.setOnClickListener(new View.OnClickListener() {
+        infoIB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
-                intent.putExtra("activity","game2");
+                intent.putExtra("activity", "game2");
                 startActivity(intent);
             }
         });
+        infoIB.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        infoIB.setColorFilter(0x65000000, PorterDuff.Mode.SRC_ATOP);
+                        infoIB.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        infoIB.clearColorFilter();
+                        infoIB.invalidate();
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
+
         for (int i = 0; i < 3; i++) {
             final int ii = i;
-            allColorBT[ii].setOnClickListener(new View.OnClickListener() {
+            colorsIB[ii].setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            if (colorsIB[ii].isClickable()) {
+                                flowersIV[ii].setColorFilter(0x99d3edff, PorterDuff.Mode.SRC_ATOP);
+                                flowersIV[ii].invalidate();
+                                break;
+                            }
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL:
+                            if (colorsIB[ii].isClickable()) {
+                                flowersIV[ii].clearColorFilter();
+                                flowersIV[ii].invalidate();
+                                break;
+                            }
+                    }
+                    return false;
+                }
+            });
+            colorsIB[ii].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    arcs[k].setColorFilter(btColors[ii]);
-                    allColorBT[ii].clearColorFilter();
-                    allColorBT[ii].setClickable(false);
-                    allColorIV[ii].clearColorFilter();
-                    allFlowerIV[ii].clearColorFilter();
+                    arcsIV[k].setColorFilter(mixedColors[ii]);
+                    colorsIB[ii].setColorFilter(0x99d3edff, PorterDuff.Mode.SRC_ATOP);
+                    colorsIB[ii].setClickable(false);
+                    colorsIV[ii].setColorFilter(0x99d3edff, PorterDuff.Mode.SRC_ATOP);
+                    flowersIV[ii].setColorFilter(0x99d3edff, PorterDuff.Mode.SRC_ATOP);
                     playerComb.add(mix.get(ii));
                     if (k < 2) {
                         k++;
-                        arcs[k].clearColorFilter();
+                        arcsIV[k].clearColorFilter();
                     } else
                         check();
                 }
@@ -116,8 +179,8 @@ public class Game2Activity extends AppCompatActivity {
 
         setOfColors = genColors(redir, from0, inVar, f, c, d);
 
-        ivArc1.setColorFilter(setOfColors[0]);
-        ivArc5.setColorFilter(setOfColors[4]);
+        arc1IV.setColorFilter(setOfColors[0]);
+        arc5IV.setColorFilter(setOfColors[4]);
 
         redraw();
         k = 0;
@@ -163,12 +226,47 @@ public class Game2Activity extends AppCompatActivity {
     }
 
     private void check() {
-        if (playerComb.equals(rightComb))
-            newGame();
-        else {
-            k = 0;
-            redraw();
-            playerComb = new ArrayList<>();
+        int delay = 4000;
+        if (playerComb.equals(rightComb)) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    arcsContourIV.setVisibility(View.GONE);
+                }
+            }, delay / 10);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    successGif.setVisibility(View.VISIBLE);
+                }
+            }, delay / 4);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    newGame();
+                }
+            }, delay);
+        } else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    arcsContourIV.setVisibility(View.GONE);
+                }
+            }, delay / 10);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    failGif.setVisibility(View.VISIBLE);
+                }
+            }, delay / 4);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    k = 0;
+                    redraw();
+                    playerComb = new ArrayList<>();
+                }
+            }, delay);
         }
     }
 
@@ -177,18 +275,25 @@ public class Game2Activity extends AppCompatActivity {
         Collections.shuffle(mix);
 
         for (int i = 0; i < 3; i++) {
-            btColors[i] = setOfColors[mix.get(i)];
-            allColorBT[i].setColorFilter(btColors[i]);
-            allColorBT[i].setClickable(true);
-            allColorIV[i].clearColorFilter();
-            allFlowerIV[i].clearColorFilter();
-            arcs[i].clearColorFilter();
+            mixedColors[i] = setOfColors[mix.get(i)];
+            colorsIB[i].setColorFilter(mixedColors[i]);
+            colorsIB[i].setClickable(true);
+            colorsIV[i].clearColorFilter();
+            flowersIV[i].clearColorFilter();
+            arcsIV[i].clearColorFilter();
         }
-        arcs[1].clearColorFilter();
-        arcs[2].clearColorFilter();
+        arcsIV[1].setColorFilter(0x99d3edff, PorterDuff.Mode.SRC_ATOP);
+        arcsIV[2].setColorFilter(0x99d3edff, PorterDuff.Mode.SRC_ATOP);
 
-        rainbowContour.setVisibility(View.VISIBLE);
+        arcsContourIV.setVisibility(View.VISIBLE);
+
+        successGif.setVisibility(View.GONE);
+        failGif.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 }
-
-
