@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,12 +39,15 @@ public class Game2Activity extends AppCompatActivity {
     int[] mixedColors = new int[3];
     ArrayList<Integer> playerComb;
     List<Integer> rightComb = Arrays.asList(1, 2, 3);
-    ;
     int[] setOfColors;
     ImageButton[] colorsIB = new ImageButton[3];
     ImageView[] colorsIV = new ImageView[3];
     ImageView[] flowersIV = new ImageView[3];
     List<Integer> mix;
+
+    MediaPlayer clickMP;
+    MediaPlayer sMP;
+    MediaPlayer fMP;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -53,6 +57,9 @@ public class Game2Activity extends AppCompatActivity {
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        sMP = MediaPlayer.create(this, R.raw.positive_action);
+        fMP = MediaPlayer.create(this, R.raw.sad_whisle);
 
         final ImageButton infoIB = findViewById(R.id.infoIB);
         Display display = getWindowManager().getDefaultDisplay();
@@ -146,6 +153,12 @@ public class Game2Activity extends AppCompatActivity {
             colorsIB[ii].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (clickMP != null) {
+                        clickMP.reset();
+                        clickMP.release();
+                    }
+                    clickMP = MediaPlayer.create(getApplicationContext(), R.raw.waterdrop);
+                    clickMP.start();
                     arcsIV[k].setColorFilter(mixedColors[ii]);
                     colorsIB[ii].setColorFilter(0x99d3edff, PorterDuff.Mode.SRC_ATOP);
                     colorsIB[ii].setClickable(false);
@@ -226,20 +239,21 @@ public class Game2Activity extends AppCompatActivity {
     }
 
     private void check() {
-        int delay = 4000;
+        int delay = 1500;
         if (playerComb.equals(rightComb)) {
+            sMP.start();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     arcsContourIV.setVisibility(View.GONE);
                 }
-            }, delay / 10);
+            }, delay / 15);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     successGif.setVisibility(View.VISIBLE);
                 }
-            }, delay / 4);
+            }, delay / 10);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -247,18 +261,19 @@ public class Game2Activity extends AppCompatActivity {
                 }
             }, delay);
         } else {
+            fMP.start();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     arcsContourIV.setVisibility(View.GONE);
                 }
-            }, delay / 10);
+            }, delay / 15);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     failGif.setVisibility(View.VISIBLE);
                 }
-            }, delay / 4);
+            }, delay / 10);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

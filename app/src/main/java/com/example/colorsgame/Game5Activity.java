@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -27,8 +28,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class Game5Activity extends AppCompatActivity {
-    ImageButton keysIB[] = new ImageButton[7];
     ImageButton infoIB, resetIB;
+    Dialog repeatDialog, resetDialog;
+
+    ImageButton keysIB[] = new ImageButton[7];
     Integer level;
     List<Integer> numbers = Arrays.asList(0, 1, 2, 3, 4, 5, 6);
     ArrayList<Integer> user_numbers;
@@ -46,8 +49,11 @@ public class Game5Activity extends AppCompatActivity {
             Color.rgb(210, 230, 255),
             Color.rgb(0, 130, 255),
             Color.rgb(160, 90, 225)};
-    Dialog repeatDialog, resetDialog;
+    int[] sounds = {R.raw.key1_do,R.raw.key2_re,R.raw.key3_mi,
+            R.raw.key4_fa,R.raw.key5_sol,R.raw.key6_la,R.raw.key7_si};
     Toast toast;
+
+    MediaPlayer keyMP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,15 +72,10 @@ public class Game5Activity extends AppCompatActivity {
         keysIB[5] = findViewById(R.id.blueIB);
         keysIB[6] = findViewById(R.id.violetIB);
 
-        for (int i = 0; i < 7; i++)
-            keysIB[i].setColorFilter(uColors[i]);
-
-        level = 1;
-        keysUnEnable();
-
         for (int i = 0; i < 7; i++) {
+            keysIB[i].setColorFilter(uColors[i]);
             final int ii = i;
-            keysIB[i].setOnClickListener(new View.OnClickListener() {
+            keysIB[ii].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (toast != null)
@@ -86,6 +87,9 @@ public class Game5Activity extends AppCompatActivity {
                 }
             });
         }
+
+        level = 1;
+        keysUnEnable();
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -348,6 +352,12 @@ public class Game5Activity extends AppCompatActivity {
     }
 
     public void clickColor(final int m) {
+        if (keyMP != null) {
+            keyMP.reset();
+            keyMP.release();
+        }
+        keyMP = MediaPlayer.create(getApplicationContext(), sounds[m]);
+        keyMP.start();
         resetIB.setEnabled(false);
         keysIB[m].setColorFilter(lightColors[m]);  // более светлый цвет
         new Handler().postDelayed(new Runnable() {

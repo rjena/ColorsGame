@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -37,12 +38,18 @@ public class Game1Activity extends AppCompatActivity {
     ImageView color1IV;
     ImageView color2IV;
     ImageView color3IV;
+
     ArrayList<ResultColor> resColors;
     boolean firstClick;
     int n = 0;
     String[] mainColorsTitles;
     int[] mainColors;
     int[] darkColors;
+    int[] clickedColors;
+
+    MediaPlayer clickMP;
+    MediaPlayer sMP;
+    MediaPlayer fMP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,9 @@ public class Game1Activity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game1);
+
+        sMP = MediaPlayer.create(this, R.raw.positive_action);
+        fMP = MediaPlayer.create(this, R.raw.sad_whisle);
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -195,28 +205,17 @@ public class Game1Activity extends AppCompatActivity {
             }
         });
 
-        Collections.shuffle(resColors);
-
-        round();
-    }
-
-    public void round() {
-        successGif.setVisibility(View.GONE);
-        failGif.setVisibility(View.GONE);
-        color1IV.clearColorFilter();
-        color1TV.setText("?");
-        color2IV.clearColorFilter();
-        color2TV.setText("?");
-        firstClick = true;
-        color3IV.setColorFilter(resColors.get(n).color);
-        color3TV.setText(resColors.get(n).title);
-        final int[] clickedColors = new int[2];
         for (int i = 0; i < 5; i++) {
-            colorsIB[i].setClickable(true);
             final int ii = i;
             colorsIB[ii].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (clickMP != null) {
+                        clickMP.reset();
+                        clickMP.release();
+                    }
+                    clickMP = MediaPlayer.create(getApplicationContext(), R.raw.balloon_pop);
+                    clickMP.start();
                     if (firstClick) {
                         color1IV.setColorFilter(mainColors[ii]);
                         color1TV.setText(mainColorsTitles[ii]);
@@ -225,7 +224,6 @@ public class Game1Activity extends AppCompatActivity {
                     } else {
                         color2IV.setColorFilter(mainColors[ii]);
                         color2TV.setText(mainColorsTitles[ii]);
-                        firstClick = true;
                         clickedColors[1] = ii;
                         checkColors(clickedColors);
                     }
@@ -252,28 +250,44 @@ public class Game1Activity extends AppCompatActivity {
                 }
             });
         }
+
+        Collections.shuffle(resColors);
+
+        round();
+    }
+
+    public void round() {
+        successGif.setVisibility(View.GONE);
+        failGif.setVisibility(View.GONE);
+        color1IV.clearColorFilter();
+        color1TV.setText("?");
+        color2IV.clearColorFilter();
+        color2TV.setText("?");
+        firstClick = true;
+        color3IV.setColorFilter(resColors.get(n).color);
+        color3TV.setText(resColors.get(n).title);
+        clickedColors = new int[2];
+        buttonsClickManager(true);
     }
 
     public void checkColors(int[] clColors) {
         if ((resColors.get(n).color1 == clColors[0] && resColors.get(n).color2 == clColors[1])
                 || (resColors.get(n).color1 == clColors[1] && resColors.get(n).color2 == clColors[0])) {
             n++;
-            for (ImageButton ib : colorsIB)
-                ib.setClickable(false);
+            sMP.start();
+            buttonsClickManager(false);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     successGif.setVisibility(View.VISIBLE);
                 }
-            }, 500);
+            }, 100);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    failGif.setVisibility(View.GONE);
                     if (n < resColors.size()) round();
                     else {
-                        for (ImageButton ib : colorsIB)
-                            ib.setClickable(false);
+                        buttonsClickManager(false);
                         infoIB.setClickable(false);
                         color1TV.setText("");
                         color2TV.setText("");
@@ -294,26 +308,29 @@ public class Game1Activity extends AppCompatActivity {
                         }, 5000);
                     }
                 }
-            }, 3000);
+            }, 1500);
         } else {
-            for (ImageButton ib : colorsIB)
-                ib.setClickable(false);
+            fMP.start();
+            buttonsClickManager(false);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     failGif.setVisibility(View.VISIBLE);
                 }
-            }, 500);
+            }, 100);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    failGif.setVisibility(View.GONE);
-                    for (ImageButton ib : colorsIB)
-                        ib.setClickable(true);
                     round();
                 }
-            }, 3000);
+            }, 1500);
         }
+    }
+
+    private void buttonsClickManager(boolean c) {
+        for (ImageButton ib : colorsIB)
+            if (c) ib.setClickable(true);
+            else ib.setClickable(false);
     }
 }
 

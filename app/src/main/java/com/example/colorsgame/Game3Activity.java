@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +34,9 @@ public class Game3Activity extends AppCompatActivity {
     SeekBar redSB;
     SeekBar greenSB;
     SeekBar blueSB;
+
     int taskColor, red, green, blue;
+    MediaPlayer sMP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class Game3Activity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game3);
+
+        sMP = MediaPlayer.create(this, R.raw.level_up);
 
         final ImageButton infoIB = findViewById(R.id.infoIB);
         Display display = getWindowManager().getDefaultDisplay();
@@ -130,9 +135,9 @@ public class Game3Activity extends AppCompatActivity {
         green = rnd.nextInt(256);
         blue = rnd.nextInt(256);
 
-        redSB.setProgress(123);
-        greenSB.setProgress(123);
-        blueSB.setProgress(123);
+        redSB.setProgress(127);
+        greenSB.setProgress(127);
+        blueSB.setProgress(127);
 
         taskColor = android.graphics.Color.rgb(red, green, blue);
         taskIV.setColorFilter(taskColor);
@@ -158,7 +163,13 @@ public class Game3Activity extends AppCompatActivity {
         if (((redValue > red - accuracy) & (redValue < red + accuracy))
                 & ((greenValue > green - accuracy) & (greenValue < green + accuracy))
                 & ((blueValue > blue - accuracy) & (blueValue < blue + accuracy))) {
-            successGif.setVisibility(View.VISIBLE);
+            sMP.start();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    successGif.setVisibility(View.VISIBLE);
+                }
+            }, 100);
             resultIV.setColorFilter(taskColor);
             redTV.setText(String.valueOf(red));
             greenTV.setText(String.valueOf(green));
@@ -178,7 +189,7 @@ public class Game3Activity extends AppCompatActivity {
                     greenSB.setEnabled(true);
                     blueSB.setEnabled(true);
                 }
-            }, 3000);
+            }, 1500);
         }
     }
 
