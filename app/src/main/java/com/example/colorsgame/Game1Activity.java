@@ -32,6 +32,7 @@ public class Game1Activity extends AppCompatActivity {
     GifImageView failGif;
     GifImageView finishGif;
     ImageButton[] colorsIB;
+    ImageView[] colorsIV;
     TextView color1TV;
     TextView color2TV;
     TextView color3TV;
@@ -42,9 +43,8 @@ public class Game1Activity extends AppCompatActivity {
     ArrayList<ResultColor> resColors;
     boolean firstClick;
     int n = 0;
-    String[] mainColorsTitles;
+    String[] mainColorsTitles = {"Белый", "Красный", "Жёлтый", "Синий", "Чёрный"};
     int[] mainColors;
-    int[] darkColors;
     int[] clickedColors;
 
     MediaPlayer clickMP;
@@ -72,6 +72,18 @@ public class Game1Activity extends AppCompatActivity {
         infoParams.width = infoParams.height;
         infoIB.setLayoutParams(infoParams);
 
+        colorsIV = new ImageView[5];
+        colorsIV[0] = findViewById(R.id.color1BIV);
+        colorsIV[1] = findViewById(R.id.color2BIV);
+        colorsIV[2] = findViewById(R.id.color3BIV);
+        colorsIV[3] = findViewById(R.id.color4BIV);
+        colorsIV[4] = findViewById(R.id.color5BIV);
+        for (ImageView iv : colorsIV) {
+            FrameLayout.LayoutParams ivParams = (FrameLayout.LayoutParams) iv.getLayoutParams();
+            ivParams.setMargins(size.y / 17, size.y / 17, size.y / 17, size.y / 17);
+            iv.setLayoutParams(ivParams);
+        }
+
         plusIV = findViewById(R.id.plusIV);
         equationIV = findViewById(R.id.equationIV);
         successGif = findViewById(R.id.success);
@@ -82,9 +94,9 @@ public class Game1Activity extends AppCompatActivity {
         color1TV = findViewById(R.id.color1TV);
         color2TV = findViewById(R.id.color2TV);
         color3TV = findViewById(R.id.color3TV);
-        color1TV.setTextSize(size.x / 60 > size.y / 33 ? size.y / 33 : size.x / 60);
-        color2TV.setTextSize(size.x / 60 > size.y / 33 ? size.y / 33 : size.x / 60);
-        color3TV.setTextSize(size.x / 60 > size.y / 33 ? size.y / 33 : size.x / 60);
+        color1TV.setTextSize(size.x / 64 > size.y / 36 ? size.y / 36 : size.x / 64);
+        color2TV.setTextSize(size.x / 64 > size.y / 36 ? size.y / 36 : size.x / 64);
+        color3TV.setTextSize(size.x / 64 > size.y / 36 ? size.y / 36 : size.x / 64);
 
         color1IV = findViewById(R.id.color1IV);
         color2IV = findViewById(R.id.color2IV);
@@ -97,27 +109,13 @@ public class Game1Activity extends AppCompatActivity {
         colorsIB[3] = findViewById(R.id.color4IB);
         colorsIB[4] = findViewById(R.id.color5IB);
 
-        mainColorsTitles = new String[5];
         mainColors = new int[5];
-        darkColors = new int[5];
-
-        mainColorsTitles[0] = "Белый";
-        mainColorsTitles[1] = "Красный";
-        mainColorsTitles[2] = "Жёлтый";
-        mainColorsTitles[3] = "Синий";
-        mainColorsTitles[4] = "Чёрный";
 
         mainColors[0] = ContextCompat.getColor(this, R.color.colorWhite);
         mainColors[1] = ContextCompat.getColor(this, R.color.colorRed);
         mainColors[2] = ContextCompat.getColor(this, R.color.colorYellow);
         mainColors[3] = ContextCompat.getColor(this, R.color.colorBlue);
         mainColors[4] = ContextCompat.getColor(this, R.color.colorBlack);
-
-        darkColors[0] = Color.parseColor("#f0f0f0");
-        darkColors[1] = Color.parseColor("#d00000");
-        darkColors[2] = Color.parseColor("#ffe000");
-        darkColors[3] = Color.parseColor("#0000ce");
-        darkColors[4] = Color.parseColor("#333333");
 
         resColors = new ArrayList<>();
 
@@ -235,13 +233,13 @@ public class Game1Activity extends AppCompatActivity {
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                             if (colorsIB[ii].isClickable()) {
-                                colorsIB[ii].setColorFilter(darkColors[ii]);
+                                colorsIB[ii].setColorFilter(0x40000000, PorterDuff.Mode.SRC_ATOP);
                                 colorsIB[ii].invalidate();
                                 break;
                             }
                         case MotionEvent.ACTION_UP:
                         case MotionEvent.ACTION_CANCEL: {
-                            colorsIB[ii].setColorFilter(mainColors[ii]);
+                            colorsIB[ii].clearColorFilter();
                             colorsIB[ii].invalidate();
                             break;
                         }

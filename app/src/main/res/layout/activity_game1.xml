@@ -128,16 +128,17 @@
                 android:src="@drawable/rgbit" />
         </FrameLayout>
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.8">
+            android:layout_margin="10dp"
+            android:layout_weight="1.8"
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
+                android:layout_weight="1">
 
                 <ImageButton
                     android:id="@+id/color1IB"
@@ -147,8 +148,21 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/button" />
+
+                <ImageView
+                    android:id="@+id/color1BIV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
                     android:tint="@android:color/white"
                     app:srcCompat="@drawable/klyaksa" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <ImageButton
                     android:id="@+id/color2IB"
@@ -158,8 +172,21 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/button" />
+
+                <ImageView
+                    android:id="@+id/color2BIV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
                     android:tint="@color/colorRed"
                     app:srcCompat="@drawable/klyaksa" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <ImageButton
                     android:id="@+id/color3IB"
@@ -169,8 +196,21 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/button" />
+
+                <ImageView
+                    android:id="@+id/color3BIV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
                     android:tint="@color/colorYellow"
                     app:srcCompat="@drawable/klyaksa" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <ImageButton
                     android:id="@+id/color4IB"
@@ -180,8 +220,21 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/button" />
+
+                <ImageView
+                    android:id="@+id/color4BIV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
                     android:tint="@color/colorBlue"
                     app:srcCompat="@drawable/klyaksa" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <ImageButton
                     android:id="@+id/color5IB"
@@ -191,10 +244,18 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/button" />
+
+                <ImageView
+                    android:id="@+id/color5BIV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
                     android:tint="@color/colorBlack"
                     app:srcCompat="@drawable/klyaksa" />
-            </LinearLayout>
-        </FrameLayout>
+            </FrameLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

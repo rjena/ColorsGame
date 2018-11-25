@@ -68,9 +68,9 @@ public class Game3Activity extends AppCompatActivity {
         redTV = findViewById(R.id.redTV);
         greenTV = findViewById(R.id.greenTV);
         blueTV = findViewById(R.id.blueTV);
-        redTV.setTextSize(size.x / 60 > size.y / 33 ? size.y / 33 : size.x / 60);
-        greenTV.setTextSize(size.x / 60 > size.y / 33 ? size.y / 33 : size.x / 60);
-        blueTV.setTextSize(size.x / 60 > size.y / 33 ? size.y / 33 : size.x / 60);
+        redTV.setTextSize(size.x / 64 > size.y / 36 ? size.y / 36 : size.x / 64);
+        greenTV.setTextSize(size.x / 64 > size.y / 36 ? size.y / 36 : size.x / 64);
+        blueTV.setTextSize(size.x / 64 > size.y / 36 ? size.y / 36 : size.x / 64);
 
         redSB = findViewById(R.id.redSB);
         greenSB = findViewById(R.id.greenSB);
