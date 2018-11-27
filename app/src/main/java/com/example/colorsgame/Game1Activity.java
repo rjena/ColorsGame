@@ -254,7 +254,7 @@ public class Game1Activity extends AppCompatActivity {
         round();
     }
 
-    public void round() {
+    private void round() {
         successGif.setVisibility(View.GONE);
         failGif.setVisibility(View.GONE);
         color1IV.clearColorFilter();
@@ -268,7 +268,7 @@ public class Game1Activity extends AppCompatActivity {
         buttonsClickManager(true);
     }
 
-    public void checkColors(int[] clColors) {
+    private void checkColors(int[] clColors) {
         if ((resColors.get(n).color1 == clColors[0] && resColors.get(n).color2 == clColors[1])
                 || (resColors.get(n).color1 == clColors[1] && resColors.get(n).color2 == clColors[0])) {
             n++;
@@ -329,6 +329,18 @@ public class Game1Activity extends AppCompatActivity {
         for (ImageButton ib : colorsIB)
             if (c) ib.setClickable(true);
             else ib.setClickable(false);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (clickMP != null)
+            clickMP.stop();
+        if (sMP != null)
+            sMP.stop();
+        if (fMP != null)
+            fMP.stop();
+        finish();
+        super.onBackPressed();
     }
 }
 

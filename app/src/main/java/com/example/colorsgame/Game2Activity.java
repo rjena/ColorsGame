@@ -308,6 +308,12 @@ public class Game2Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (clickMP != null)
+            clickMP.stop();
+        if (sMP != null)
+            sMP.stop();
+        if (fMP != null)
+            fMP.stop();
         finish();
         super.onBackPressed();
     }

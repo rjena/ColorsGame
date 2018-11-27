@@ -275,8 +275,10 @@ public class Game6Activity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         timer.pauseTimer();
-        clickMP.stop();
+        if (clickMP != null)
+            clickMP.stop();
         finish();
+        super.onBackPressed();
     }
 
     public static void resetRec() {

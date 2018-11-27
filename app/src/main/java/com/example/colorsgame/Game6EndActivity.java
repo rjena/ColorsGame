@@ -122,6 +122,7 @@ public class Game6EndActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (mp != null)
             mp.stop();
+        finish();
         super.onBackPressed();
     }
 }

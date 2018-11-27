@@ -195,6 +195,8 @@ public class Game3Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (sMP != null)
+            sMP.stop();
         finish();
         super.onBackPressed();
     }

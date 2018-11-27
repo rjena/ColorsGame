@@ -26,5 +26,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.12'
+    implementation 'com.github.madrapps:pikolo:1.1.6'
     implementation 'com.ankushgrover:Hourglass:2.0.0'
 }

@@ -265,10 +265,13 @@ public class Game5Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (keyMP != null)
+            keyMP.stop();
         if (toast != null)
             toast.cancel();
         toast = null;
         level = 0;
+        finish();
         super.onBackPressed();
     }
 
@@ -280,7 +283,7 @@ public class Game5Activity extends AppCompatActivity {
         }
     }
 
-    public void playit() {
+    private void playit() {
         resetIB.setEnabled(false);
         keysUnEnable();
         for (int i = 0; i < level; i++) {
@@ -308,7 +311,7 @@ public class Game5Activity extends AppCompatActivity {
         }, level * 1000 + 500);
     }
 
-    public void check() {
+    private void check() {
         keysUnEnable();
         if (user_numbers.equals(numbers))
             repeatDialog.show();
@@ -351,13 +354,14 @@ public class Game5Activity extends AppCompatActivity {
         }
     }
 
-    public void clickColor(final int m) {
+    private void clickColor(final int m) {
         if (keyMP != null) {
             keyMP.reset();
             keyMP.release();
         }
         keyMP = MediaPlayer.create(getApplicationContext(), sounds[m]);
-        keyMP.start();
+        if (level != 0)
+            keyMP.start();
         resetIB.setEnabled(false);
         keysIB[m].setColorFilter(lightColors[m]);  // более светлый цвет
         new Handler().postDelayed(new Runnable() {
