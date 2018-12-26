@@ -8,6 +8,7 @@
     tools:context=".Game4Activity">
 
     <LinearLayout
+        android:id="@+id/mainLL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
@@ -293,12 +294,29 @@
             </FrameLayout>
 
             <ImageButton
-                android:id="@+id/pikolo"
+                android:id="@+id/pikoloIB"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@null"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/button3" />
+                app:srcCompat="@drawable/color_picker" />
+
+            <ImageButton
+                android:id="@+id/thicknessIB"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
+
+            <ImageButton
+                android:id="@+id/clearIB"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                app:srcCompat="@android:drawable/ic_menu_delete" />
         </GridLayout>
 
         <FrameLayout
@@ -316,101 +334,56 @@
         </FrameLayout>
     </LinearLayout>
 
-
-    <LinearLayout
-        android:id="@+id/colorPickerLL"
+    <FrameLayout
+        android:id="@+id/colorPickerFL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:background="@color/colorWhite"
         android:orientation="horizontal"
         android:visibility="gone">
 
         <com.madrapps.pikolo.HSLColorPicker
+            android:id="@+id/colorPicker"
             android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/confirmCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/colorGreen"
+            android:text="OK" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/thicknessLL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <SeekBar
+            android:id="@+id/thicknessSB"
+            style="@android:style/Widget.Holo.SeekBar"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:max="200"
+            android:min="2"
+            android:progress="10"
+            android:progressTint="@color/colorGrey"
+            android:thumbTint="@color/colorGrey" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/rTV"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="R" />
-
-                <EditText
-                    android:id="@+id/rET"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/gTV"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="G" />
-
-                <EditText
-                    android:id="@+id/gET"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/bTV"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="B" />
-
-                <EditText
-                    android:id="@+id/bET"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName" />
-            </LinearLayout>
-
-            <ImageButton
-                android:id="@+id/confirmIB"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/thumb" />
-
-        </LinearLayout>
+        <Button
+            android:id="@+id/confirmTB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/colorGreen"
+            android:text="OK" />
     </LinearLayout>
 </FrameLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="@color/colorBackground"
     android:layout_height="match_parent">
@@ -35,6 +36,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:gravity="center"
+                        android:fontFamily="@font/adigiana_2"
                         android:text=" ?" />
 
                     <ImageView
@@ -65,6 +67,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:gravity="center"
+                        android:fontFamily="@font/adigiana_2"
                         android:text=" ?" />
 
                     <ImageView
@@ -95,6 +98,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="4"
                         android:gravity="center"
+                        android:fontFamily="@font/adigiana_2"
                         android:text="Color" />
 
                     <ImageView
@@ -118,14 +122,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"
+                android:layout_gravity="center"
                 android:src="@drawable/sad_bun" />
 
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/finish"
+            <LinearLayout
+                android:id="@+id/finishLL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitEnd"
-                android:src="@drawable/rgbit" />
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/finTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:fontFamily="@font/adigiana_2"
+                        android:gravity="center"
+                        android:text="@string/game1_end"
+                        android:textColor="@color/colorOrange" />
+                </FrameLayout>
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/fin1" />
+            </LinearLayout>
+
         </FrameLayout>
 
         <LinearLayout

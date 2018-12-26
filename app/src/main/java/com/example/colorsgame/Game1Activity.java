@@ -2,7 +2,6 @@ package com.example.colorsgame;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
@@ -17,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class Game1Activity extends AppCompatActivity {
     ImageView equationIV;
     GifImageView successGif;
     GifImageView failGif;
-    GifImageView finishGif;
+    LinearLayout finish;
     ImageButton[] colorsIB;
     ImageView[] colorsIV;
     TextView color1TV;
@@ -88,8 +88,13 @@ public class Game1Activity extends AppCompatActivity {
         equationIV = findViewById(R.id.equationIV);
         successGif = findViewById(R.id.success);
         failGif = findViewById(R.id.fail);
-        finishGif = findViewById(R.id.finish);
-        finishGif.setVisibility(View.GONE);
+        FrameLayout.LayoutParams gifParams = (FrameLayout.LayoutParams) failGif.getLayoutParams();
+        gifParams.setMargins(0, size.y / 10, 0, size.y / 25);
+        failGif.setLayoutParams(gifParams);
+        TextView finTV = findViewById(R.id.finTV);
+        finTV.setTextSize(size.x / 48 > (int) (size.y / 22.5) ? (int) (size.y / 22.5) : size.x / 48);
+        finish = findViewById(R.id.finishLL);
+        finish.setVisibility(View.GONE);
 
         color1TV = findViewById(R.id.color1TV);
         color2TV = findViewById(R.id.color2TV);
@@ -297,7 +302,7 @@ public class Game1Activity extends AppCompatActivity {
                         equationIV.setImageDrawable(null);
                         successGif.setVisibility(View.GONE);
                         failGif.setVisibility(View.GONE);
-                        finishGif.setVisibility(View.VISIBLE);
+                        finish.setVisibility(View.VISIBLE);
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {

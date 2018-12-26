@@ -64,19 +64,22 @@ public class Game3Activity extends AppCompatActivity {
         taskIV = findViewById(R.id.taskIV);
         successGif = findViewById(R.id.success);
         successGif.setVisibility(View.GONE);
+        FrameLayout.LayoutParams gifParams = (FrameLayout.LayoutParams) successGif.getLayoutParams();
+        gifParams.setMargins(size.y / 10, size.y / 20, 0, size.y / 20);
+        successGif.setLayoutParams(gifParams);
 
         redTV = findViewById(R.id.redTV);
         greenTV = findViewById(R.id.greenTV);
         blueTV = findViewById(R.id.blueTV);
-        redTV.setTextSize(size.x / 64 > size.y / 36 ? size.y / 36 : size.x / 64);
-        greenTV.setTextSize(size.x / 64 > size.y / 36 ? size.y / 36 : size.x / 64);
-        blueTV.setTextSize(size.x / 64 > size.y / 36 ? size.y / 36 : size.x / 64);
+        redTV.setTextSize(size.x / 48 > (int) (size.y / 22.5) ? (int) (size.y / 22.5) : size.x / 48);
+        greenTV.setTextSize(size.x / 48 > (int) (size.y / 22.5) ? (int) (size.y / 22.5) : size.x / 48);
+        blueTV.setTextSize(size.x / 48 > (int) (size.y / 22.5) ? (int) (size.y / 22.5) : size.x / 48);
 
         redSB = findViewById(R.id.redSB);
         greenSB = findViewById(R.id.greenSB);
         blueSB = findViewById(R.id.blueSB);
 
-        updateBackground();
+        //updateBackground();
 
         redSB.setOnSeekBarChangeListener(seekBarChangeListener);
         greenSB.setOnSeekBarChangeListener(seekBarChangeListener);

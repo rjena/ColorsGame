@@ -274,19 +274,27 @@
 
     </LinearLayout>
 
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/success"
+    <FrameLayout
+        android:id="@+id/gifFL"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/happy_bun" />
+        android:layout_height="match_parent">
 
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/fail"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/sad_bun" />
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/success"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:src="@drawable/happy_bun" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/fail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:src="@drawable/sad_bun" />
+    </FrameLayout>
 
     <ImageButton
         android:id="@+id/infoIB"

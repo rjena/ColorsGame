@@ -1,5 +1,6 @@
 package com.example.colorsgame;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
@@ -12,6 +13,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -114,6 +116,40 @@ public class Game6EndActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Game6Activity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        final Dialog resetDialog = new Dialog(this);
+        resetDialog.setContentView(R.layout.activity_dialog);
+        Button resetB = resetDialog.findViewById(R.id.bt1);
+        Button noResetB = resetDialog.findViewById(R.id.bt2);
+        TextView resetTV = resetDialog.findViewById(R.id.tv);
+        resetTV.setTextSize(size.x / 50 > size.y / 28 ? size.y / 28 : size.x / 50);
+        resetTV.setText("Сбросить рекорд?");
+        resetB.setTextSize(size.x / 75 > size.y / 42 ? size.y / 42 : size.x / 75);
+        resetB.setText("Да");
+        noResetB.setTextSize(size.x / 75 > size.y / 42 ? size.y / 42 : size.x / 75);
+        noResetB.setText("Нет");
+
+        resetB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Game6Activity.resetRec();
+                resetDialog.dismiss();
+                record.setText("0");
+            }
+        });
+        noResetB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetDialog.dismiss();
+            }
+        });
+        ImageButton reset = findViewById(R.id.resetIB);
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetDialog.show();
             }
         });
     }

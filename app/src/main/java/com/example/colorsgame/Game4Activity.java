@@ -6,18 +6,28 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
+
+import com.madrapps.pikolo.HSLColorPicker;
+import com.madrapps.pikolo.listeners.SimpleColorSelectionListener;
 
 public class Game4Activity extends AppCompatActivity {
-    int curColor;
+    int curColor, pikoloColor, strokeWidth, thickWidth;
     Paint mPaint = new Paint();
     ImageView[] pickedIV;
 
@@ -78,9 +88,12 @@ public class Game4Activity extends AppCompatActivity {
                 }
             });
         }
+
         removePicks();
         curColor = colors[0];
         pickedIV[0].setVisibility(View.VISIBLE);
+        strokeWidth = 10;
+        thickWidth = strokeWidth;
 
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
@@ -112,6 +125,86 @@ public class Game4Activity extends AppCompatActivity {
                 return true;
             }
         });
+
+        final LinearLayout mainLL = findViewById(R.id.mainLL);
+        ImageButton pikoloIB = findViewById(R.id.pikoloIB);
+        final FrameLayout colorPickerFL = findViewById(R.id.colorPickerFL);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        FrameLayout.LayoutParams pikoloParams = (FrameLayout.LayoutParams) colorPickerFL.getLayoutParams();
+        pikoloParams.height = (int) (0.9 * size.y);
+        pikoloParams.width = pikoloParams.height;
+        colorPickerFL.setLayoutParams(pikoloParams);
+        final HSLColorPicker colorPicker = findViewById(R.id.colorPicker);
+        pikoloColor = Color.rgb(86, 173, 157);
+        Button pickCB = findViewById(R.id.confirmCB);
+        pikoloIB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                colorPickerFL.setVisibility(View.VISIBLE);
+                //enOrDisable(mainLL, false);
+                board.setEnabled(false);
+            }
+        });
+        colorPicker.setColorSelectionListener(new SimpleColorSelectionListener() {
+            @Override
+            public void onColorSelected(int color) {
+                pikoloColor = color;
+            }
+        });
+        pickCB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removePicks();
+                curColor = pikoloColor;
+                colorPickerFL.setVisibility(View.GONE);
+                //enOrDisable(mainLL, true);
+                board.setEnabled(true);
+            }
+        });
+
+        ImageButton thickIB = findViewById(R.id.thicknessIB);
+        final LinearLayout thicknessLL = findViewById(R.id.thicknessLL);
+        SeekBar thicknessSB = findViewById(R.id.thicknessSB);
+        thicknessSB.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                thickWidth = progress;
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+        Button pickTB = findViewById(R.id.confirmTB);
+        thickIB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                thicknessLL.setVisibility(View.VISIBLE);
+                //enOrDisable(mainLL, false);
+                board.setEnabled(false);
+            }
+        });
+        pickTB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                strokeWidth = thickWidth;
+                thicknessLL.setVisibility(View.GONE);
+                //enOrDisable(mainLL, true);
+                board.setEnabled(true);
+            }
+        });
+
+        final ImageButton clearIB = findViewById(R.id.clearIB);
+        clearIB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clear(((BitmapDrawable) board.getDrawable()).getBitmap());
+            }
+        });
     }
 
     private float mX, mY;
@@ -139,10 +232,18 @@ public class Game4Activity extends AppCompatActivity {
         Bitmap bitmapResult = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas mCanvas = new Canvas(bitmapResult);
         mPaint.setColor(color);
-        mPaint.setStrokeWidth(10);
+        mPaint.setStrokeWidth(strokeWidth);
         mCanvas.drawBitmap(bitmap, 0, 0, mPaint);
         mCanvas.drawPath(mPath, mPaint);
 
+        ImageView firstImageView = findViewById(R.id.boardIV);
+        firstImageView.setImageBitmap(bitmapResult);
+    }
+
+    private void clear(Bitmap bitmap) {
+        Bitmap bitmapResult = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas mCanvas = new Canvas(bitmapResult);
+        mCanvas.drawColor(Color.rgb(255, 255, 255));
         ImageView firstImageView = findViewById(R.id.boardIV);
         firstImageView.setImageBitmap(bitmapResult);
     }
@@ -151,6 +252,15 @@ public class Game4Activity extends AppCompatActivity {
         for (ImageView iv : pickedIV)
             iv.setVisibility(View.GONE);
     }
+
+    /*private void enOrDisable(ViewGroup layout, boolean enable) {
+        for (int i = 0; i < layout.getChildCount(); i++) {
+            View child = layout.getChildAt(i);
+            child.setClickable(enable);
+            if (child instanceof ViewGroup)
+                enOrDisable((ViewGroup) child, enable);
+        }
+    }*/
 
     @Override
     public void onBackPressed() {

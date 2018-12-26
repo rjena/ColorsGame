@@ -75,6 +75,10 @@ public class Game2Activity extends AppCompatActivity {
         rainbowParams.setMargins(0, size.y / 10, 0, 0);
         rainbowFL.setLayoutParams(rainbowParams);
 
+        FrameLayout gifFL = findViewById(R.id.gifFL);
+        FrameLayout.LayoutParams gifParams = (FrameLayout.LayoutParams) gifFL.getLayoutParams();
+        gifParams.setMargins(size.y / 4, size.y / 20, size.y / 4, size.y / 20);
+        gifFL.setLayoutParams(gifParams);
         successGif = findViewById(R.id.success);
         failGif = findViewById(R.id.fail);
 

@@ -31,6 +31,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="8"
                     android:gravity="center"
+                    android:fontFamily="@font/adigiana_2"
                     android:text="TextView" />
 
                 <SeekBar
@@ -57,6 +58,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="8"
                     android:gravity="center"
+                    android:fontFamily="@font/adigiana_2"
                     android:text="TextView" />
 
                 <SeekBar
@@ -83,6 +85,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="8"
                     android:gravity="center"
+                    android:fontFamily="@font/adigiana_2"
                     android:text="TextView" />
 
                 <SeekBar
@@ -103,6 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
+            android:layout_gravity="center"
             android:visibility="gone"
             android:src="@drawable/happy_bun" />
 

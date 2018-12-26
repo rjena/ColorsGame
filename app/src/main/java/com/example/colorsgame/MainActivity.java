@@ -18,6 +18,8 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         final FrameLayout main = findViewById(R.id.main);
         final ImageButton infoIB = findViewById(R.id.infoIB);
+        final GifImageView rgbit = findViewById(R.id.rgbit);
 
         infoIB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +55,26 @@ public class MainActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_CANCEL: {
                         infoIB.clearColorFilter();
                         infoIB.invalidate();
+                        break;
+                    }
+                }
+                return false;
+            }
+        });
+
+        rgbit.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        rgbit.setImageResource(R.drawable.rgbit_contact);
+                        rgbit.invalidate();
+                        return true;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        rgbit.setImageResource(R.drawable.rgbit);
+                        rgbit.invalidate();
                         break;
                     }
                 }

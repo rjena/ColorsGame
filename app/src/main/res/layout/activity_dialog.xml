@@ -11,7 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:textSize="20sp"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
         android:gravity="center"
+        android:fontFamily="@font/adigiana_2"
         android:text="Text" />
 
     <LinearLayout
@@ -26,6 +29,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:padding="15dp"
+            android:fontFamily="@font/adigiana_2"
             android:text="Case1" />
 
         <Button
@@ -35,6 +39,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:padding="15dp"
+            android:fontFamily="@font/adigiana_2"
             android:text="Case2" />
     </LinearLayout>
 </LinearLayout>
